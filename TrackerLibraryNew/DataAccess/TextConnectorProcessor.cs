@@ -73,7 +73,7 @@ namespace TrackerLibrary.DataAccess.TextHelpers
 
             foreach (PrizeModel p in models)
             {
-                lines.Add($"{p.Id}, {p.PlaceNumber}, {p.PlaceName}, {p.PrizeAmount}, {p.PrizePercentage}");
+                lines.Add($"{p.Id},{p.PlaceNumber},{p.PlaceName},{p.PrizeAmount},{p.PrizePercentage}");
             }
 
             File.WriteAllLines(filename.FullFilePath(), lines);
@@ -85,7 +85,7 @@ namespace TrackerLibrary.DataAccess.TextHelpers
 
             foreach (PersonModel p in models)
             {
-                lines.Add($"{p.Id}, {p.FirstName}, {p.LastName}, {p.EmailAddress}, {p.PhoneNumber}");
+                lines.Add($"{p.Id},{p.FirstName},{p.LastName},{p.EmailAddress},{p.PhoneNumber}");
             }
 
             File.WriteAllLines(filename.FullFilePath(), lines);

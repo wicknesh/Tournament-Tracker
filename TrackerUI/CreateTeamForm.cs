@@ -15,12 +15,36 @@ namespace TrackerUI
 {
     public partial class CreateTeamForm : Form
     {
-        private List<PersonModel> availableTeamMembers = new List<PersonModel>();
+        private List<PersonModel> availableTeamMembers = GlobalConfig.Connection.GetPersonAll();
         private List<PersonModel> selectedTeamMembers = new List<PersonModel>();
 
         public CreateTeamForm()
         {
             InitializeComponent();
+
+            /*CreateSampleData();*/
+
+            WireUpLists();
+        }
+
+        private void CreateSampleData()
+        {
+            availableTeamMembers.Add(new PersonModel { FirstName = "Vignesh", LastName = "J S" });
+            availableTeamMembers.Add(new PersonModel { FirstName = "Sivapriya", LastName = "Pillai" });
+
+            selectedTeamMembers.Add(new PersonModel { FirstName = "Gautham", LastName = "Jayan" });
+            selectedTeamMembers.Add(new PersonModel { FirstName = "Vaishnav", LastName = "Sundaram" });
+        }
+
+        private void WireUpLists()
+        {
+            selectTeamMemberDropDown.DataSource = null;
+            selectTeamMemberDropDown.DataSource = availableTeamMembers;
+            selectTeamMemberDropDown.DisplayMember = "FullName";
+
+            teamMembersListBox.DataSource = null;
+            teamMembersListBox.DataSource = selectedTeamMembers;
+            teamMembersListBox.DisplayMember = "FullName";
         }
 
         private void createMemberButton_Click(object sender, EventArgs e)
@@ -34,7 +58,12 @@ namespace TrackerUI
                 p.PhoneNumber = phoneNumberValue.Text;
 
                 IDataConnection db = GlobalConfig.Connection;
-                db.CreatePerson(p);
+                p = db.CreatePerson(p);
+
+                selectedTeamMembers.Add(p);
+
+                WireUpLists();
+
 
                 firstNameValue.Text = "";
                 lastNameValue.Text = "";
@@ -45,6 +74,8 @@ namespace TrackerUI
             {
                 MessageBox.Show("This form contains invalid information. Please check it and try again!");
             }
+
+
 
         }
 
@@ -61,49 +92,38 @@ namespace TrackerUI
             return true;
         }
 
-        /*private void CreateTeamForm_Load(object sender, EventArgs e)
+        private void addMemberButton_Click(object sender, EventArgs e)
         {
+            PersonModel p = (PersonModel)selectTeamMemberDropDown.SelectedItem;
 
+            if (p != null)
+            {
+                availableTeamMembers.Remove(p);
+                selectedTeamMembers.Add(p);
+
+                WireUpLists(); 
+            }
+
+            if(p == null)
+            {
+                MessageBox.Show("No member selected. Please select a member to add to list!");
+            }
         }
 
-        private void selectTeamMemberDropDown_SelectedIndexChanged(object sender, EventArgs e)
+        private void removeSelectedMemberButton_Click(object sender, EventArgs e)
         {
+            PersonModel p = (PersonModel)teamMembersListBox.SelectedItem;
+            if (p != null)
+            {
+                selectedTeamMembers.Remove(p);
+                availableTeamMembers.Add(p);
 
+                WireUpLists(); 
+            }
+            if(p == null)
+            {
+                MessageBox.Show("No member selected. Please select a member to remove!");
+            }
         }
-
-        private void addTeamMemberButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void teamOneScoreLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void teamOneScoreValue_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void createMemberButton_Click(object sender, EventArgs e)
-        {
-
-        }*/
     }
 }
