@@ -57,8 +57,7 @@ namespace TrackerUI
                 p.EmailAddress = emailValue.Text;
                 p.PhoneNumber = phoneNumberValue.Text;
 
-                IDataConnection db = GlobalConfig.Connection;
-                p = db.CreatePerson(p);
+                p = GlobalConfig.Connection.CreatePerson(p);
 
                 selectedTeamMembers.Add(p);
 
@@ -124,6 +123,31 @@ namespace TrackerUI
             {
                 MessageBox.Show("No member selected. Please select a member to remove!");
             }
+        }
+
+        private void createTeamButton_Click(object sender, EventArgs e)
+        {
+            TeamModel t = new TeamModel();
+            t.TeamName = teamNameValue.Text;
+            t.TeamMembers = selectedTeamMembers;
+
+            GlobalConfig.Connection.CreateTeam(t);
+            //TODO -  If we are not closing this form after creation, reset form.
+        }
+
+        private void clearListButton_Click(object sender, EventArgs e)
+        {
+            if(selectedTeamMembers.Count == 0)
+            {
+                MessageBox.Show("List is empty!");
+            }
+            foreach(var item in selectedTeamMembers)
+            {
+                availableTeamMembers.Add(item);
+            }
+            selectedTeamMembers.Clear();
+            teamMembersListBox.DataSource = null;
+            WireUpLists();
         }
     }
 }

@@ -7,24 +7,56 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TrackerLibrary;
+using TrackerLibrary.DataAccess;
+using TrackerLibrary.Models;
 
 namespace TrackerUI
 {
-    public partial class tournamentPlayersLabel : Form
+    public partial class CreateTournamentForm : Form
     {
-        public tournamentPlayersLabel()
+        List<TeamModel> availableTeams = GlobalConfig.Connection.GetTeamAll();
+        List<TeamModel> selectedTeams = new List<TeamModel>();
+        List<PrizeModel> selectedPrizes = new List<PrizeModel>();
+
+        public CreateTournamentForm()
         {
             InitializeComponent();
+
+            WireUpLists();
         }
 
-        private void teamOneScoreLabel_Click(object sender, EventArgs e)
+        private void WireUpLists()
         {
+            selectTeamDropDown.DataSource = null;
+            selectTeamDropDown.DataSource = availableTeams;
+            selectTeamDropDown.DisplayMember = "TeamName";
 
+            tournamentPlayersListBox.DataSource = null;
+            tournamentPlayersListBox.DataSource = selectedTeams;
+            tournamentPlayersListBox.DisplayMember = "TeamName";
+
+            prizesListBox.DataSource = null;
+            prizesListBox.DataSource = selectedPrizes;
+            prizesListBox.DisplayMember = "PlaceName";
         }
 
-        private void createNewTeamLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void addTeamButton_Click(object sender, EventArgs e)
         {
+            TeamModel t = (TeamModel)selectTeamDropDown.SelectedItem;
 
+            if (t != null)
+            {
+                availableTeams.Remove(t);
+                selectedTeams.Add(t);
+
+                WireUpLists();
+            }
+
+            if (t == null)
+            {
+                MessageBox.Show("No member selected. Please select a member to add to list!");
+            }
         }
     }
 }

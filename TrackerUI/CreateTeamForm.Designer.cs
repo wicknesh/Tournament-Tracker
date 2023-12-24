@@ -48,6 +48,7 @@
             this.teamMembersListBox = new System.Windows.Forms.ListBox();
             this.removeSelectedMemberButton = new System.Windows.Forms.Button();
             this.createTeamButton = new System.Windows.Forms.Button();
+            this.clearListButton = new System.Windows.Forms.Button();
             this.addNewMemberGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -243,7 +244,7 @@
             this.removeSelectedMemberButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.removeSelectedMemberButton.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.removeSelectedMemberButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(153)))), ((int)(((byte)(255)))));
-            this.removeSelectedMemberButton.Location = new System.Drawing.Point(1094, 326);
+            this.removeSelectedMemberButton.Location = new System.Drawing.Point(1109, 316);
             this.removeSelectedMemberButton.Name = "removeSelectedMemberButton";
             this.removeSelectedMemberButton.Size = new System.Drawing.Size(121, 72);
             this.removeSelectedMemberButton.TabIndex = 26;
@@ -266,6 +267,24 @@
             this.createTeamButton.TabIndex = 27;
             this.createTeamButton.Text = "Create Team";
             this.createTeamButton.UseVisualStyleBackColor = false;
+            this.createTeamButton.Click += new System.EventHandler(this.createTeamButton_Click);
+            // 
+            // clearListButton
+            // 
+            this.clearListButton.BackColor = System.Drawing.Color.White;
+            this.clearListButton.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.clearListButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
+            this.clearListButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
+            this.clearListButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.clearListButton.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clearListButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(153)))), ((int)(((byte)(255)))));
+            this.clearListButton.Location = new System.Drawing.Point(1112, 562);
+            this.clearListButton.Name = "clearListButton";
+            this.clearListButton.Size = new System.Drawing.Size(118, 37);
+            this.clearListButton.TabIndex = 28;
+            this.clearListButton.Text = "Clear List";
+            this.clearListButton.UseVisualStyleBackColor = false;
+            this.clearListButton.Click += new System.EventHandler(this.clearListButton_Click);
             // 
             // CreateTeamForm
             // 
@@ -273,6 +292,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1270, 736);
+            this.Controls.Add(this.clearListButton);
             this.Controls.Add(this.createTeamButton);
             this.Controls.Add(this.removeSelectedMemberButton);
             this.Controls.Add(this.teamMembersListBox);
@@ -284,6 +304,7 @@
             this.Controls.Add(this.teamNameLabel);
             this.Controls.Add(this.headerLabel);
             this.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.Name = "CreateTeamForm";
@@ -316,5 +337,6 @@
         private System.Windows.Forms.ListBox teamMembersListBox;
         private System.Windows.Forms.Button removeSelectedMemberButton;
         private System.Windows.Forms.Button createTeamButton;
+        private System.Windows.Forms.Button clearListButton;
     }
 }
