@@ -32,7 +32,7 @@
             this.headerLabel = new System.Windows.Forms.Label();
             this.tournamentNameValue = new System.Windows.Forms.TextBox();
             this.tournamentNameLabel = new System.Windows.Forms.Label();
-            this.entryFeeValueLabel = new System.Windows.Forms.TextBox();
+            this.entryFeeValue = new System.Windows.Forms.TextBox();
             this.entryFeeLabel = new System.Windows.Forms.Label();
             this.selectTeamDropDown = new System.Windows.Forms.ComboBox();
             this.selectTeamLabel = new System.Windows.Forms.Label();
@@ -46,6 +46,8 @@
             this.prizesListBox = new System.Windows.Forms.ListBox();
             this.tournamentPlayersListBox = new System.Windows.Forms.ListBox();
             this.createTournamentButton = new System.Windows.Forms.Button();
+            this.clearTeamsListBoxButton = new System.Windows.Forms.Button();
+            this.clearPrizesListBoxButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // headerLabel
@@ -77,13 +79,13 @@
             this.tournamentNameLabel.TabIndex = 9;
             this.tournamentNameLabel.Text = "Tournament Name";
             // 
-            // entryFeeValueLabel
+            // entryFeeValue
             // 
-            this.entryFeeValueLabel.Location = new System.Drawing.Point(155, 177);
-            this.entryFeeValueLabel.Name = "entryFeeValueLabel";
-            this.entryFeeValueLabel.Size = new System.Drawing.Size(94, 35);
-            this.entryFeeValueLabel.TabIndex = 12;
-            this.entryFeeValueLabel.Text = "0";
+            this.entryFeeValue.Location = new System.Drawing.Point(155, 177);
+            this.entryFeeValue.Name = "entryFeeValue";
+            this.entryFeeValue.Size = new System.Drawing.Size(94, 35);
+            this.entryFeeValue.TabIndex = 12;
+            this.entryFeeValue.Text = "0";
             // 
             // entryFeeLabel
             // 
@@ -125,6 +127,7 @@
             this.createNewTeamLink.TabIndex = 15;
             this.createNewTeamLink.TabStop = true;
             this.createNewTeamLink.Text = "create new team";
+            this.createNewTeamLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.createNewTeamLink_LinkClicked);
             // 
             // addTeamButton
             // 
@@ -158,6 +161,7 @@
             this.createPrizeButton.TabIndex = 17;
             this.createPrizeButton.Text = "Create Prize";
             this.createPrizeButton.UseVisualStyleBackColor = false;
+            this.createPrizeButton.Click += new System.EventHandler(this.createPrizeButton_Click);
             // 
             // teamPlayersLabel
             // 
@@ -179,12 +183,13 @@
             this.deleteSelectedPlayerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.deleteSelectedPlayerButton.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.deleteSelectedPlayerButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(153)))), ((int)(((byte)(255)))));
-            this.deleteSelectedPlayerButton.Location = new System.Drawing.Point(960, 175);
+            this.deleteSelectedPlayerButton.Location = new System.Drawing.Point(960, 143);
             this.deleteSelectedPlayerButton.Name = "deleteSelectedPlayerButton";
             this.deleteSelectedPlayerButton.Size = new System.Drawing.Size(121, 72);
             this.deleteSelectedPlayerButton.TabIndex = 20;
-            this.deleteSelectedPlayerButton.Text = "Delete Selected";
+            this.deleteSelectedPlayerButton.Text = "Remove Selected";
             this.deleteSelectedPlayerButton.UseVisualStyleBackColor = false;
+            this.deleteSelectedPlayerButton.Click += new System.EventHandler(this.deleteSelectedPlayerButton_Click);
             // 
             // deletedSelectedPrizeButton
             // 
@@ -195,12 +200,13 @@
             this.deletedSelectedPrizeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.deletedSelectedPrizeButton.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.deletedSelectedPrizeButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(153)))), ((int)(((byte)(255)))));
-            this.deletedSelectedPrizeButton.Location = new System.Drawing.Point(960, 423);
+            this.deletedSelectedPrizeButton.Location = new System.Drawing.Point(960, 389);
             this.deletedSelectedPrizeButton.Name = "deletedSelectedPrizeButton";
             this.deletedSelectedPrizeButton.Size = new System.Drawing.Size(121, 72);
             this.deletedSelectedPrizeButton.TabIndex = 23;
-            this.deletedSelectedPrizeButton.Text = "Delete Selected";
+            this.deletedSelectedPrizeButton.Text = "Remove Selected";
             this.deletedSelectedPrizeButton.UseVisualStyleBackColor = false;
+            this.deletedSelectedPrizeButton.Click += new System.EventHandler(this.deletedSelectedPrizeButton_Click);
             // 
             // prizesLabel
             // 
@@ -240,19 +246,56 @@
             this.createTournamentButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.createTournamentButton.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.createTournamentButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(153)))), ((int)(((byte)(255)))));
-            this.createTournamentButton.Location = new System.Drawing.Point(499, 574);
+            this.createTournamentButton.Location = new System.Drawing.Point(436, 574);
             this.createTournamentButton.Name = "createTournamentButton";
             this.createTournamentButton.Size = new System.Drawing.Size(242, 53);
             this.createTournamentButton.TabIndex = 25;
             this.createTournamentButton.Text = "Create Tournament";
             this.createTournamentButton.UseVisualStyleBackColor = false;
+            this.createTournamentButton.Click += new System.EventHandler(this.createTournamentButton_Click);
+            // 
+            // clearTeamsListBoxButton
+            // 
+            this.clearTeamsListBoxButton.BackColor = System.Drawing.Color.White;
+            this.clearTeamsListBoxButton.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.clearTeamsListBoxButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
+            this.clearTeamsListBoxButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
+            this.clearTeamsListBoxButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.clearTeamsListBoxButton.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clearTeamsListBoxButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(153)))), ((int)(((byte)(255)))));
+            this.clearTeamsListBoxButton.Location = new System.Drawing.Point(960, 233);
+            this.clearTeamsListBoxButton.Name = "clearTeamsListBoxButton";
+            this.clearTeamsListBoxButton.Size = new System.Drawing.Size(121, 37);
+            this.clearTeamsListBoxButton.TabIndex = 26;
+            this.clearTeamsListBoxButton.Text = "Clear List";
+            this.clearTeamsListBoxButton.UseVisualStyleBackColor = false;
+            this.clearTeamsListBoxButton.Click += new System.EventHandler(this.clearTeamsListBoxButton_Click);
+            // 
+            // clearPrizesListBoxButton
+            // 
+            this.clearPrizesListBoxButton.BackColor = System.Drawing.Color.White;
+            this.clearPrizesListBoxButton.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.clearPrizesListBoxButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
+            this.clearPrizesListBoxButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
+            this.clearPrizesListBoxButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.clearPrizesListBoxButton.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clearPrizesListBoxButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(153)))), ((int)(((byte)(255)))));
+            this.clearPrizesListBoxButton.Location = new System.Drawing.Point(960, 478);
+            this.clearPrizesListBoxButton.Name = "clearPrizesListBoxButton";
+            this.clearPrizesListBoxButton.Size = new System.Drawing.Size(121, 37);
+            this.clearPrizesListBoxButton.TabIndex = 27;
+            this.clearPrizesListBoxButton.Text = "Clear List";
+            this.clearPrizesListBoxButton.UseVisualStyleBackColor = false;
+            this.clearPrizesListBoxButton.Click += new System.EventHandler(this.clearPrizesListBoxButton_Click);
             // 
             // CreateTournamentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1241, 639);
+            this.ClientSize = new System.Drawing.Size(1115, 639);
+            this.Controls.Add(this.clearPrizesListBoxButton);
+            this.Controls.Add(this.clearTeamsListBoxButton);
             this.Controls.Add(this.createTournamentButton);
             this.Controls.Add(this.tournamentPlayersListBox);
             this.Controls.Add(this.deletedSelectedPrizeButton);
@@ -265,12 +308,13 @@
             this.Controls.Add(this.createNewTeamLink);
             this.Controls.Add(this.selectTeamDropDown);
             this.Controls.Add(this.selectTeamLabel);
-            this.Controls.Add(this.entryFeeValueLabel);
+            this.Controls.Add(this.entryFeeValue);
             this.Controls.Add(this.entryFeeLabel);
             this.Controls.Add(this.tournamentNameValue);
             this.Controls.Add(this.tournamentNameLabel);
             this.Controls.Add(this.headerLabel);
             this.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.Name = "CreateTournamentForm";
@@ -285,7 +329,7 @@
         private System.Windows.Forms.Label headerLabel;
         private System.Windows.Forms.TextBox tournamentNameValue;
         private System.Windows.Forms.Label tournamentNameLabel;
-        private System.Windows.Forms.TextBox entryFeeValueLabel;
+        private System.Windows.Forms.TextBox entryFeeValue;
         private System.Windows.Forms.Label entryFeeLabel;
         private System.Windows.Forms.ComboBox selectTeamDropDown;
         private System.Windows.Forms.Label selectTeamLabel;
@@ -299,5 +343,7 @@
         private System.Windows.Forms.ListBox prizesListBox;
         private System.Windows.Forms.ListBox tournamentPlayersListBox;
         private System.Windows.Forms.Button createTournamentButton;
+        private System.Windows.Forms.Button clearTeamsListBoxButton;
+        private System.Windows.Forms.Button clearPrizesListBoxButton;
     }
 }

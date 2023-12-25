@@ -18,22 +18,15 @@ namespace TrackerUI
         private List<PersonModel> availableTeamMembers = GlobalConfig.Connection.GetPersonAll();
         private List<PersonModel> selectedTeamMembers = new List<PersonModel>();
 
-        public CreateTeamForm()
+        private ITeamRequester callingform;
+
+        public CreateTeamForm(ITeamRequester caller)
         {
             InitializeComponent();
 
-            /*CreateSampleData();*/
-
             WireUpLists();
-        }
 
-        private void CreateSampleData()
-        {
-            availableTeamMembers.Add(new PersonModel { FirstName = "Vignesh", LastName = "J S" });
-            availableTeamMembers.Add(new PersonModel { FirstName = "Sivapriya", LastName = "Pillai" });
-
-            selectedTeamMembers.Add(new PersonModel { FirstName = "Gautham", LastName = "Jayan" });
-            selectedTeamMembers.Add(new PersonModel { FirstName = "Vaishnav", LastName = "Sundaram" });
+            callingform = caller;
         }
 
         private void WireUpLists()
@@ -63,7 +56,6 @@ namespace TrackerUI
 
                 WireUpLists();
 
-
                 firstNameValue.Text = "";
                 lastNameValue.Text = "";
                 emailValue.Text = "";
@@ -71,7 +63,7 @@ namespace TrackerUI
             }
             else 
             {
-                MessageBox.Show("This form contains invalid information. Please check it and try again!");
+                MessageBox.Show("This form contains invalid information. Please check it and try again!", "Invalid Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
 
@@ -132,7 +124,10 @@ namespace TrackerUI
             t.TeamMembers = selectedTeamMembers;
 
             GlobalConfig.Connection.CreateTeam(t);
-            //TODO -  If we are not closing this form after creation, reset form.
+
+            callingform.TeamComplete(t);
+
+            this.Close();
         }
 
         private void clearListButton_Click(object sender, EventArgs e)

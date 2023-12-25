@@ -16,15 +16,12 @@ namespace TrackerUI
 {
     public partial class CreatePrizeForm : Form
     {
-        public CreatePrizeForm()
+        IPrizeRequester callingForm;
+        public CreatePrizeForm(IPrizeRequester caller)
         {
             InitializeComponent();
+            callingForm = caller;
         }
-
-        /*private void firstNameValue_TextChanged(object sender, EventArgs e)
-        {
-
-        }*/
 
         private void createPrizeButton_Click(object sender, EventArgs e)
         {
@@ -36,19 +33,16 @@ namespace TrackerUI
                     prizeAmountValue.Text, 
                     prizePercentageValue.Text);
 
-                IDataConnection db = GlobalConfig.Connection;
+                GlobalConfig.Connection.CreatePrize(model);
 
-                db.CreatePrize(model);
+                callingForm.PrizeComplete(model);
 
-                /*foreach (IDataConnection db in GlobalConfig.Connections)
-                {
-                    *//*db.CreatePrize(model);*//*
-                }*/
+                this.Close();
 
-                placeNumberValue.Text = "";
+                /*placeNumberValue.Text = "";
                 placeNameValue.Text = "";
                 prizeAmountValue.Text = "0";
-                prizePercentageValue.Text = "0";
+                prizePercentageValue.Text = "0";*/
             }
             else
             {
@@ -61,8 +55,8 @@ namespace TrackerUI
         {
             bool output = true;
 
-            int placeNumber = 0;
-            bool placeNumberValid = int.TryParse(placeNumberValue.Text, out placeNumber);
+            /*int placeNumber = 0;*/
+            bool placeNumberValid = int.TryParse(placeNumberValue.Text, out int placeNumber);
 
             if (!placeNumberValid)
             {
@@ -79,10 +73,10 @@ namespace TrackerUI
                 output = false;
             }
 
-            decimal prizeAmount = 0;
-            double prizePercentage = 0;
-            bool prizeAmountValid = decimal.TryParse(prizeAmountValue.Text, out prizeAmount);
-            bool prizePercentageValid = double.TryParse(prizePercentageValue.Text, out prizePercentage);
+            /*decimal prizeAmount = 0;
+            double prizePercentage = 0;*/
+            bool prizeAmountValid = decimal.TryParse(prizeAmountValue.Text, out decimal prizeAmount);
+            bool prizePercentageValid = double.TryParse(prizePercentageValue.Text, out double prizePercentage);
 
             if (!prizeAmountValid || !prizePercentageValid)
             {
